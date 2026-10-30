@@ -29,7 +29,7 @@ class ClienteREST:  # encapsula URL base e a política de retry
         self.tentativas = tentativas  # número máximo de tentativas
         self.espera = espera  # espera inicial T, em segundos
         self.timeout = timeout  # tempo máximo de cada requisição
-        self.sessao = requests.Session()  # reaproveita a conexão TCP entre chamadas (HTTP keep-alive)
+        self.sessao = requests.Session()  # sessão HTTP; o servidor de desenvolvimento do Flask responde "Connection: close", então cada chamada abre uma conexão TCP nova
 
     def calcular_espera(self, tentativa):  # backoff exponencial com jitter
         return self.espera * 2 ** (tentativa - 1) + random.uniform(0, self.espera)  # T, 2T, 4T... mais um aleatório em [0, T)

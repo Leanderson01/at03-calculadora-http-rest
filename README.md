@@ -103,5 +103,6 @@ Testes do parser: `python -m pytest -q` (ou `python -m unittest`).
 O que observar:
 - um POST por rota (`/soma`, `/multiplicacao`...) com o JSON no corpo;
 - o status de cada resposta (`200`, `400`, `503`);
+- cada POST, inclusive cada nova tentativa, abre a própria conexão TCP, porque o servidor responde com `Connection: close`;
 - as **repetições do retry**: o mesmo POST reenviado depois de um `503`, com intervalos crescentes (veja a coluna *Time*);
 - com `--atraso`, o cliente desiste da conexão (FIN/RST) antes de chegar a resposta.
